@@ -1,4 +1,4 @@
-package src;
+
 public class Mergesort {
 	protected static int[] slot;
 	static int keyComp;

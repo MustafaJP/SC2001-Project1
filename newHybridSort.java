@@ -1,7 +1,7 @@
-package src;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.Arrays;
+import java.util.Random;
 
 public class newHybridSort {
 
@@ -195,8 +195,9 @@ public class newHybridSort {
 
         // Create an array to store the average comparison counts for each input size
         long[] keyCompArr = new long[12];
-        int[] inputSizeList = { 1000, 2000, 5000, 10000, 20000, 50000, 100000, 200000, 500000, 1000000, 2000000, 5000000, 10000000
-             };
+        int[] inputSizeList = { 1000, 2000, 5000, 10000, 20000, 50000, 100000, 200000, 500000, 1000000, 2000000,
+                5000000, 10000000
+        };
 
         for (int i = 0; i < inputSizeList.length; i++) {
             long average = 0;
@@ -227,26 +228,26 @@ public class newHybridSort {
 
     public static long[] keyCompwithSTest() {
         // We want to test how different values of 'S' affect the sorting process.
-        // The input size is fixed
+        // The input size is fixed at 100,000
         int count = 0;
 
         // Create an array to store the average comparison counts for each 'S' value.
-        long[] keyCompArr = new long[1000];
+        long[] keyCompArr = new long[101];
 
-        // Start testing 'S' values from 0 to 999.
-        for (int i = 0; i < 1000; i += 1) {
+        // Start testing 'S' values from 0 to 100.
+        for (int i = 0; i < 100; i++) {
             // Set the 'S' value to the current 'i'.
             S = i;
 
-            // Perform this test 100 times to get a good average result.
+            // Perform this test 100 times to get the average result.
             long average = 0;
-            for (int j = 0; j < 100; j++) {
+            for (int j = 0; j < 100; j++) { // Keep the number of tests at 100.
 
                 // Reset the key comparison count for this test.
                 keyComp = 0;
 
-                // Generate random data to be sorted.
-                int[] testArr = GenerateInput.generateRandom(1000, 1000);
+                // Generate a random data array with 100,000 elements and values up to 10,000.
+                int[] testArr = GenerateInput.generateRandom(100000, 10000);
 
                 // Sort the data using the 'hybridSorter' method and count key comparisons.
                 hybridSorter(testArr, 0, testArr.length - 1);
@@ -266,13 +267,11 @@ public class newHybridSort {
 
     public static void generateTestResults() throws IOException {
 
-        
-        // this is the fastest test
         long[] sTestResult = keyCompwithSTest();
         System.out.println("Key Comparison w/ S Test: " +
-        Arrays.toString(sTestResult));
+                Arrays.toString(sTestResult));
         makeCSV.CSVprinter(sTestResult, "sTestResult.csv");
-         
+
         // this test takes quite abit of time
         long[] inputTestResult = keyCompwithInputTest();
         System.out.println("Key Comparison w/ Input Test: " +
@@ -283,7 +282,12 @@ public class newHybridSort {
 
     public static void main(String[] args) throws IOException {
         generateTestResults();
-        //measureHybridSortKeyCmpAndTime();
+        // measureHybridSortKeyCmpAndTime();
     }
 
 }
+
+
+
+
+

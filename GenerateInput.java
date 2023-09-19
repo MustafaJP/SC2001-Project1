@@ -1,4 +1,4 @@
-package src;
+
 
 /*
  * Generate arrays of increasing sizes, in a range from 1,000 to 10 million. 
