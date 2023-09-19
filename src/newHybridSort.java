@@ -1,16 +1,16 @@
+package src;
 
 import java.io.IOException;
 import java.util.*;
 
 public class newHybridSort {
 
-    protected static int[] slot;
-    private static int S = 100; // threshold for switching to insert
+    private static int[] slot;
+    private static int S = 456; // threshold for switching to insert
     static int keyComp;
     static final int TEST_VALUE = 1000;
+    static final int TEST_SIZE = 10000000;
     static final int ITER = 10; // number of each test to be averaged
-
-    static final int TEST_SIZE = 100000;
 
     public newHybridSort(int[] array) {
         // Initialize the slot array with a copy of the input array
@@ -28,6 +28,10 @@ public class newHybridSort {
     }
 
     public static void hybridSorter(int[] arr, int leftIndex, int rightIndex) {
+        // Initialize the slot array if it's null
+        if (slot == null) {
+            slot = Arrays.copyOf(arr, arr.length);
+        }
         // Recursive function to perform hybrid sorting
 
         // Calculate the middle index of the current subarray
@@ -191,11 +195,10 @@ public class newHybridSort {
 
         // Create an array to store the average comparison counts for each input size
         long[] keyCompArr = new long[12];
-        int[] inputSizeList = { 1000, 2000, 5000, 10000, 20000, 50000, 100000, 200000, 500000, 1000000, 2000000,
-                5000000, 10000000 };
+        int[] inputSizeList = { 1000, 2000, 5000, 10000, 20000, 50000, 100000, 200000, 500000, 1000000, 2000000, 5000000, 10000000
+             };
 
-        // Start testing input sizes from 10,000 to 10,000,000 in increments of 10,000.
-        for (int i = 0; i <= inputSizeList.length; i++) {
+        for (int i = 0; i < inputSizeList.length; i++) {
             long average = 0;
 
             // Perform this test 5 times for each input size to get a good average result.
@@ -263,14 +266,13 @@ public class newHybridSort {
 
     public static void generateTestResults() throws IOException {
 
-        /*
-         * // this is the fastest test
-         * long[] sTestResult = keyCompwithSTest();
-         * System.out.println("Key Comparison w/ S Test: " +
-         * Arrays.toString(sTestResult));
-         * makeCSV.CSVprinter(sTestResult, "sTestResult.csv");
-         */
-
+        
+        // this is the fastest test
+        long[] sTestResult = keyCompwithSTest();
+        System.out.println("Key Comparison w/ S Test: " +
+        Arrays.toString(sTestResult));
+        makeCSV.CSVprinter(sTestResult, "sTestResult.csv");
+         
         // this test takes quite abit of time
         long[] inputTestResult = keyCompwithInputTest();
         System.out.println("Key Comparison w/ Input Test: " +
@@ -280,18 +282,8 @@ public class newHybridSort {
     }
 
     public static void main(String[] args) throws IOException {
-        int[] arr = generateRandom(1000, 1000);
-        System.out.println("Before Merge Sort with InsertSort:");
-        System.out.println(Arrays.toString(arr) + "\n");
-        newHybridSort sorter = new newHybridSort(arr);
-        sorter.sortAndCountKeyComparisons();
-
-        System.out.println("After Merge Sort with InsertSort:");
-        System.out.println(Arrays.toString(newHybridSort.slot));
-
-        System.out.println("\n Key Comparisons: " + newHybridSort.keyComp);
-        // generateTestResults();
-        measureHybridSortKeyCmpAndTime();
+        generateTestResults();
+        //measureHybridSortKeyCmpAndTime();
     }
 
 }

@@ -1,8 +1,9 @@
+package src;
 import java.io.IOException;
 import java.util.Arrays;
 
 public class determiningS {
-    static final int MAX_SIZE = 300;
+    static final int MAX_SIZE = 1000;
     static final int MAX_VALUE = 1000;
     static final int ITER = 50000; // Number of each test to be averaged
 
